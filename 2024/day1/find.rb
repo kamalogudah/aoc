@@ -3,16 +3,14 @@
 first = []
 second = []
 File.foreach('input.txt') do |line|
-  first << line.split[0]
-  second << line.split[1]
+  first << line.split[0].to_i
+  second << line.split[1].to_i
 end
 
 first_sorted = first.sort
 second_sorted = second.sort
 
 def differences(first, second)
-  first = first.to_i
-  second = second.to_i
   if first >= second
     first - second
   else
@@ -27,4 +25,10 @@ new_len = length - 1
   diff << differences(first_sorted[i], second_sorted[i])
 end
 
-puts diff.sum
+puts diff.sum # 2285373
+v = []
+first_sorted.each do |num|
+  v << num * second_sorted.select { |n| n.eql?(num) }.count
+end
+
+puts v.sum # 21142653
